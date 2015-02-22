@@ -1,0 +1,432 @@
+/*------------------------------------//---------------------------------------
+ * classes supporting panels
+ */
+
+@import "elements.less";
+@import "variables.less";
+
+.output-panel {
+    height: 200px;
+}
+
+
+.panel
+{
+
+}
+
+.panel-cell
+{
+
+}
+
+.options a, .options i
+{
+    /* margin-left: 10px;*/ /* separate box header option buttons */
+}
+
+.block
+{
+    padding-top: 10px;
+    padding-bottom: 1px;
+    background-color: #9C9C9C;
+    border-bottom: 1px solid #7B7A7A;
+    border-left: 1px solid #7B7A7A;
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 1px;
+    position: relative;
+}
+
+.block .toolbar
+{
+
+    margin-right: 10px;
+    margin-top: -5px;
+    height: 22px;
+}
+
+.block .toolbar .more, .block .toolbar .help
+{
+    float: right;
+}
+
+.block-inner
+{
+    margin: 7px 10px 10px;
+}
+
+.block-overlay
+{
+    /* @todo this is supposed to cover a panel block (like system status) when it
+     * fails to refresh
+     width: 100%;
+     height: 100%;
+     position: relative;
+     top: 0px;
+     left: 0px;
+     background-color: black;
+     /*   background: #000
+     * url(custom-theme/images/ui-bg_flat_100_000000_40x100.png) 50% 50%
+     * repeat-x;*/
+    opacity: .5;
+    filter: ~"Alpha(Opacity =         50)";
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+}
+
+.panel-label, .panel-text
+{
+    /*line-height: 30px;
+     display: table-cell;
+     vertical-align: middle;
+     display: inline-block;*/
+}
+
+.panel-active-row, .panel-active-cell
+{
+    border: 1px solid #ffff00 !important;
+}
+
+.panel-active-row .panel-active-row {
+    border-style: none !important;
+}
+
+.panel-led-set
+{
+    display: block;
+}
+
+.panel-led
+{
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.panel-led-led
+{
+    background-image: url("/images/set2/led.png");
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    width: 20px;
+}
+
+.panel-led-quantity-single
+{
+    color: #54D666;
+    font-size: 14px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+}
+
+.panel-led-quantity-single .panel-led-led
+{
+    display: inline-block;
+}
+
+.panel-led-quantity-single .panel-led-label-text
+{
+    display: inline-block;
+    left: 22px;
+    padding-left: 5px;
+    padding-top: 0px;
+    line-height: 14px;
+    font-size: 12px;
+    position: absolute;
+    top: 5px;
+    text-transform: uppercase;
+}
+
+.panel-led-quantity-single .panel-led-color-red
+{
+    color: #F63131;
+}
+
+.panel-led-quantity-single .panel-led-color-yellow
+{
+    color: #FFC20E;
+}
+
+.panel-led-power-blink .panel-led-led
+{
+    background-image: url("/images/set2/blinkenlights5.gif");
+}
+
+.panel-led-power-on .panel-led-led, .panel-led-power-blink .panel-led-led
+{
+    background-position: -20px bottom;
+}
+
+.panel-led-color-yellow.panel-led-power-on .panel-led-led, .panel-led-color-yellow.panel-led-power-blink .panel-led-led
+{
+    background-position: -40px bottom;
+}
+
+.panel-led-color-red.panel-led-power-on .panel-led-led, .panel-led-color-red.panel-led-power-blink .panel-led-led
+{
+    background-position: -60px bottom;
+}
+
+.panel-led-individual
+{
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.panel-led-label-text
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    padding: 5px 0px 0px 0px;
+}
+
+.panel-row-cell.panel-line-meter
+{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.panel-line-meter-wrap
+{
+    display: inline-block;
+}
+
+.panel-line-meter-label-low, .panel-line-meter-meter, .panel-line-meter-label-high
+{
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.panel-line-meter-meter
+{
+    background-color: #9C9C9C;
+    border: 1px solid #FFFFFF;
+    position: relative;
+    width: 100px;
+}
+
+.panel-line-meter-reading
+{
+    background-color: #54D666;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.panel-line-meter-gradations img
+{
+    position: relative;
+    width: 100px;
+    z-index: 2;
+}
+
+.panel-line-meter-meter, .panel-line-meter-reading, .panel-line-meter-gradations img
+{
+    height: 18px;
+}
+
+.panel-table-wrap
+{
+
+}
+
+.panel-table
+{
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-style: none;
+}
+
+.panel-table td
+{
+    background-color: #373838;
+    border-right: 1px solid #000000;
+    border-style: solid solid none none;
+    border-top: 1px solid #000000;
+    color: #FFFFFF;
+    height: 30px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.panel-table td.panel-label
+{
+    background-color: #D0D0D0;
+    border-style: none;
+    border-left: 1px solid #6B6B6B;
+    border-top: 1px solid #6B6B6B;
+    color: #000000;
+    position: relative;
+    height: 39px;
+}
+
+/* see PanelHelper::label */
+.panel-table td.panel-label .status-link
+{
+    float: right;
+}
+
+/* see PanelHelper::label */
+.panel-table td.panel-label .settings-link
+{
+    float: right;
+}
+
+.panel-info-link
+{
+    float: right;
+    width: 61px;
+    height: 41px;
+    background-image: url('/images/set2/info-button.png');
+    background-position: right center;
+    text-indent: -9999px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.panel-info-link:hover
+{
+    background-position: left center;
+}
+
+.panel-table td.panel-label-link .inner
+{
+    padding: 0;
+    padding-left: 5px;
+}
+
+.panel-label-text
+{
+    float: left;
+}
+
+.panel-label-link .panel-label-text
+{
+    margin-right: 50px;
+    position: relative;
+    height: 39px;
+}
+
+.panel-info-link
+{
+    float: right;
+    width: 59px;
+    height: 39px;
+    background-image: url('/images/set2/info-button.png');
+    background-position: top right;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+td.panel-label.panel-label-link
+{
+    background-image: url('/images/set2/panel-label-bg.png');
+    background-position: top right;
+    border-top-style: none;
+}
+
+
+.panel-label-text
+{
+    float: left;
+}
+
+.panel-label-link .panel-label-text
+{
+    margin-right: 50px;
+}
+
+
+
+
+
+
+#contact-web-link
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.panel-list,
+.panel-list-link {
+    display: block;
+}
+
+.panel-list .inner-well,
+.panel-list-link .inner-well {
+    border-radius: 0;
+    margin-top: 4px;
+}
+
+.panel-list .nested-well,
+.panel-list-link .nested-well {
+  border-radius: 0;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  margin-top: 0px;
+}
+
+.panel-list .inner-well.panel-list-last,
+.panel-list-link.panel-list-last .inner-well,
+.panel-list-link .panel-list-last.inner-well {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.panel-list .nested-well.panel-list-last,
+.panel-list-link.panel-list-last .nested-well,
+.panel-list-link .panel-list-last.nested-well {
+  border-top-width: 0px;
+  border-bottom-width: 1px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.spc-margin-left {
+    margin-left: 20px;
+}
+
+.spc-float-right {
+    float: right;
+}
+
+.panel-list .inner-well.panel-list-head,
+.nav-header.panel-list-head {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding: 0 8px;
+    line-height: 1em;
+    padding-top: 2px;
+    min-height: 20px;
+}
+
+.nav-header.panel-list-first,
+.panel-list .inner-well.panel-list-first {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+  
+.nested-well.panel-list-first {
+  border-top-width: 1px;
+  border-bottom-width: 0px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px; }
+
+
+.nav-header .panel-text.panel-list-head {
+    padding-left: 0;
+}

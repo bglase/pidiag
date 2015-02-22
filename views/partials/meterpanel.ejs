@@ -1,0 +1,36 @@
+<!-- 
+    View partial that adds a box to show various status meters
+    Sets up a div tagged with an ID, that is updated client-side with javascript
+ -->
+
+<%- box.start( {title: 'Meters'} ) %>
+
+<%- column.start(12, 'padded') %>
+    <div class='inner-well meter-panel' >
+        <%- row.start() %>
+            <span class="panel-label span4">Product</span>
+            <span class="panel-text span8"><%= 12 %></span>
+        <%- row.end() %>
+
+        <%- row.start() %>
+            <span class="panel-label span4">Serial No</span>
+            <span class="panel-text span8"><%= 12345 %></span>
+        <%- row.end() %>
+
+        <%- row.start() %>
+            <span class="panel-label span4">Firmware</span>
+            <span class="panel-text span8"><%= 12345 %></span>
+        <%- row.end() %>
+
+        <%- row.start() %>
+            <%- statusBlock('Hours', '0', '', {  valueClass: 'red' }) %>
+            <%- statusBlock('Low Batt Hours', '0', '', {valueClass: 'red' }) %>
+            <%- statusBlock('Overtemp', '0', '', {valueClass: 'green' }) %>
+            <%- statusBlock('Throttle Failband', '0', '', {valueClass: 'yellow' }) %>
+            <%- statusBlock('Incomplete Chg', '0', '', {valueClass: 'blue' }) %>
+        <%- row.end() %>
+            
+    </div>
+<%- column.end() %>
+
+<%- box.end() %>

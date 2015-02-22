@@ -1,0 +1,337 @@
+/*------------------------------------//---------------------------------------
+ * classes the page's main menu
+ */
+
+@import "elements.less";
+@import "variables.less";
+
+#elem_mainmenu
+{
+}
+
+.mainmenu-root
+{
+    margin: 5px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.mainmenu-root li
+{
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.mainmenu-root li a:hover
+{
+    color: #F37320;
+}
+
+.mainmenu-root > li
+{
+    display: inline-block;
+    margin-left: 6px;
+    position: relative;
+}
+
+.mainmenu-root > li > ul
+{
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 21px;
+    background-color: #FFFFFF;
+    background-image: url("@{images}/set2/orange.png");
+    background-position: left -27px;
+    background-repeat: repeat-x;
+    border-color: #FFFFFF #FFFFFF #F37320;
+    z-index: 3;
+    border-color: #FFFFFF #FFFFFF #F37320;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    box-shadow: 5px 5px 10px #000000;
+    font-size: 12px;
+    min-width: 150px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-top: 54px;
+    display: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding-bottom: 20px;
+}
+
+.mainmenu-root ul ul
+{
+    padding-left: 10px;
+}
+
+.mainmenu-root li.mainmenu-branch-shown ul
+{
+    display: block;
+}
+
+#bannerMainMenu .mainmenu-root > li > span
+{
+    background-image: url("@{images}/set2/primary-buttons-all.png");
+    background-position: right -82px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    padding-right: 20px;
+    text-indent: 20px;
+    z-index: 10;
+    position: relative;
+}
+
+#bannerMainMenu .mainmenu-root > ul, #bannerMainMenu .mainmenu-root li {
+z-index: 1;
+}
+
+#bannerMainMenu .mainmenu-root > ul, #bannerMainMenu .mainmenu-root > li.mainmenu-branch-shown {
+z-index: 5;
+}
+
+#bannerMainMenu .mainmenu-root > li.wide-menu > span {
+    padding-right: 20px;
+    text-indent: 0;
+    background-position: right -41px;
+    background-image: none;
+}
+
+li.wide-menu .wide-menu-button {
+    background-position: right -41px;
+    background-repeat:no-repeat;
+    background-image: url("@{images}/set2/primary-buttons-all.png");
+    float: right;
+    width: 20px;
+    height:41px;
+    z-index: 4;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+li.wide-menu:hover .wide-menu-button,
+li.wide-menu.mainmenu-branch-shown .wide-menu-button {
+    background-position: right -164px;
+}
+
+
+.wide-root-text {
+    display: none;
+}
+
+.mainmenu-list-item-group.wide-menu .wide-root-text,
+#bannerMainMenu .mainmenu-root > li > span > a
+{
+    background-image: url("@{images}/set2/primary-buttons-all.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 12px;
+    height: 41px;
+    line-height: 41px;    
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    margin-right: 20px;
+}
+
+
+.wide-root-text,
+#bannerMainMenu .mainmenu-root > li.wide-menu > span > a {
+    display: none;
+}
+
+.mainmenu-list-item-group.wide-menu .wide-root-text {
+    display: block;
+    padding-left: 20px;
+}
+
+.mainmenu-list-head
+{
+    width: 100%; /* top level button all the same size */
+    min-width: 120px;
+}
+#bannerMainMenu .wide-right > .mainmenu-list-head, #bannerMainMenu .wide-left > .mainmenu-list-head
+{
+    position: relative;
+    z-index: auto;
+}
+
+#bannerMainMenu .wide-right .wide-root, #bannerMainMenu .wide-left .wide-root
+{
+    background-image: url("@{images}/set2/wide-root.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    border-left: 1px solid #FFFFFF;
+    display: none;
+    height: 50px;
+    left: 0;
+    padding-right: 18px;
+    position: absolute;
+    top: 17px;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+}
+
+#bannerMainMenu .mainmenu-root > li.mainmenu-branch-shown.wide-menu > span .wide-root a {
+    text-transform: uppercase;
+    color: #ffffff;
+    display: inline-block;
+    margin: 30px auto 0;
+    text-align: center;   
+    padding: 0px 15px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  white-space:nowrap;
+}
+.wide-menu .wide-root a:hover {
+        color: #ffffff;
+    background-image: url("@{images}/set2/white-dot.png");
+}
+
+#bannerMainMenu .wide-left .wide-root
+{
+    background-position: left bottom;
+    border-left-style: none;
+    border-right: 1px solid #FFFFFF;
+    left: auto;
+    padding-left: 18px;
+    padding-right: 0;
+    right: 0;
+}
+
+.wide-root {
+    display: none;
+}
+
+#bannerMainMenu .mainmenu-root > ul, #bannerMainMenu .mainmenu-root li.mainmenu-branch-shown .wide-root
+{
+    display: block;
+}
+
+
+#bannerMainMenu .mainmenu-root .wide-right > ul
+{
+    background-image: url('@{images}/set2/wide-menu-bg.png');
+    background-repeat: repeat-x;
+    background-position: 0% 0%;
+    padding-left: 0;
+    padding-top: 0;
+    top: 66px;
+    z-index: -2;
+    border-top-right-radius: 5px;
+    min-width: 100%;
+    padding-right: 5px;
+    padding-bottom: 20px;
+}
+
+#bannerMainMenu .mainmenu-root .wide-left > ul
+{
+    background-image: url('@{images}/set2/wide-menu-bg.png');
+    background-repeat: repeat-x;
+    background-position: 0% 0%;    
+    left: auto;
+    padding-bottom: 0;
+    padding-top: 0;
+    right: 0;
+    top: 66px;
+    z-index: -2;
+    border-top-left-radius: 5px;
+    min-width: 100%;
+    padding-left: 5px;
+    padding-bottom: 20px;
+}
+
+#bannerMainMenu .mainmenu-root .wide-left > ul > li > span, #bannerMainMenu .mainmenu-root .wide-right > ul > li > span
+{
+    background-color: #F37320;
+    color: #FFFFFF;
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 30px;
+    text-transform: uppercase;
+}
+
+#bannerMainMenu .mainmenu-root .wide-left > ul > li > ul, #bannerMainMenu .mainmenu-root .wide-right > ul > li > ul
+{
+    padding-left: 30px;
+}
+
+#bannerMainMenu .mainmenu-root .wide-left > ul > li > span a, #bannerMainMenu .mainmenu-root .wide-right > ul > li > span a
+{
+    color: #FFFFFF;
+    /*  font-weight: bold;*/
+}
+
+#bannerMainMenu .mainmenu-root .wide-right > ul > li, #bannerMainMenu .mainmenu-root .wide-left > ul > li
+{
+    clear: none;
+    color: #000;
+    float: left;
+    margin-right: -5px;
+    vertical-align: top;
+    width: 180px;
+}
+
+#bannerMainMenu .mainmenu-root .wide-right > ul > li:hover > span, #bannerMainMenu .mainmenu-root .wide-left > ul > li:hover > span
+{
+    background-image: url("../img/set2/white-dot.png");
+    background-position: 15px center;
+    background-repeat: no-repeat;
+}
+
+#bannerMainMenu .mainmenu-root .wide-left ul ul ul, #bannerMainMenu .mainmenu-root .wide-right ul ul ul
+{
+    margin-left: 8px;
+}
+
+/* color of links in the menu */
+.mainmenu-root a
+{
+    color: #000;
+}
+#bannerMainMenu .mainmenu-root > li:hover > span {
+    background-position: right -123px;
+}
+
+#bannerMainMenu .mainmenu-root > li.wide-menu:hover > span
+{
+     background-position: right -41px; 
+}
+
+#bannerMainMenu .mainmenu-root > li.mainmenu-branch-shown > span,
+#bannerMainMenu .mainmenu-root > li.mainmenu-branch-shown:hover > span {
+    background-position: right -164px;
+}
+
+
+.mainmenu-list-item-group.wide-menu.mainmenu-branch-shown .wide-root-text,
+.mainmenu-list-item-group.wide-menu:hover .wide-root-text,
+#bannerMainMenu .mainmenu-root > li:hover > span a
+{
+    background-position: left bottom;
+}
+
+#bannerMainMenu .mainmenu-root > li.mainmenu-branch-shown > span a
+{
+    background-position: left -205px;
+}
+
+.mainmenu-root .span1 {
+    display: none;
+}
+
+.row-fluid .mainmenu-root .span2 {
+    width: 18.5%;
+    margin-left: 1%;
+}
+

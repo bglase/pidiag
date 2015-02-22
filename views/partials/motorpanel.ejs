@@ -1,0 +1,25 @@
+<!-- 
+    View partial that adds a box to motor status
+    Sets up a div tagged with an ID, that is updated client-side with javascript
+ -->
+
+<%- box.start( {title: 'Motor Output'} ) %>
+
+<%- column.start(12, 'padded') %>
+<div class='inner-well'></div>
+<div id='motor-speed' class='inner-well'></div>
+<div id='motor-throttle' class='inner-well'></div>
+<%- column.end() %>
+
+<%- box.end() %>
+
+
+/**
+ * Client side script to show and refresh the gauges
+ */
+$(document).ready(function() {
+
+    FusionCharts.ready(function () {
+ 
+     });
+});

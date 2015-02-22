@@ -1,0 +1,93 @@
+/*------------------------------------//---------------------------------------
+ * classes supporting status boxes
+ */
+
+@import "elements.less";
+@import "variables.less";
+.status-box
+{
+    margin: 0;
+    padding: 0;
+/*    margin-top: 10px*/
+}
+.status-box .sparkline
+{
+   /* margin-top: 8px;*/
+    display: inline-block;
+    vertical-align: top;
+    height: 40px
+}
+.status-box .big
+{
+    width: 83px;
+    height: 40px
+}
+.status-box .status-row
+{
+    *zoom: 1;
+    text-align: center;
+    padding: 0;
+    padding-right: 15px;
+    float: left;
+    border-right: 1px dotted #aaa;
+    border-left: 1px dotted #fff
+}
+.status-box .status-row:before, .status-box .status-row:after
+{
+    display: table;
+    content: "";
+    line-height: 0
+}
+.status-box .status-row:after
+{
+    clear: both
+}
+.status-box .status-row:last-child
+{
+    border-right: none
+}
+.status-box .status-row:first-child
+{
+    border-left: none
+}
+.status-box h4
+{
+    display: inline-block;
+    text-align: center;
+    margin: 0;
+    text-shadow: none;
+    /*text-shadow: 0 1px rgba(255,255,255,0.5);*/
+    min-width: 70px
+}
+.status-box h4.red
+{
+    color: red;
+}
+.status-box h4.orange
+{
+    color: #F37421;
+}
+.status-box h4.blue
+{
+    color: blue;
+}
+.status-box h4.gray
+{
+    color: #6b787f
+}
+.status-box h4.green
+{
+    color: green;
+}
+.status-box h4.dark-green
+{
+    color: #779148
+}
+.status-box h4 span
+{
+    color: white;
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    font-weight: 400
+}
