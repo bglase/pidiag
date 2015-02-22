@@ -11,6 +11,10 @@ $(document).ready(function() {
         
        // var domId = $this.id;
         
+        $.getJSON( 'status/statusPanel', function(data, textStatus, jqXHR) {
+                console.log( data);
+              });
+
         window.setTimeout( function() {
             $.getJSON( 'status/idiotPanel', function(data, textStatus, jqXHR) {
                 var leds = [];
