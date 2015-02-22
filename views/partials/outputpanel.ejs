@@ -1,22 +1,22 @@
-<!-- 
+  <!-- 
     View partial that adds a box to show controller output gauges
     Sets up a div tagged with an ID, that is updated client-side with javascript
  -->
 
-<%- box.start( {title: 'Output'} ) %>
+<!-- <%- box.start( {title: 'Output'} ) %> -->
 
-<%- column.start(12, 'padded') %>
-    <div class='inner-well output-panel' >
-        <div class='vled-gauge-wrapper span4' id='output-pwm' ></div>
-      <!--   <div class='panel-text'>PWM</div>         -->
+<%- column.start(6, 'padded') %>
+     <div class='inner-well output-panel' >
+       <div class='vled-gauge-wrapper span4' id='output-pwm' ></div>
+     <!--   <div class='panel-text'>PWM</div>         -->
+   
+       <div class='vled-gauge-wrapper span4' id='output-volts' ></div>
+     <!--   <div class='panel-text'>PWM</div>         -->
     
-        <div class='vled-gauge-wrapper span4' id='output-volts' ></div>
-      <!--   <div class='panel-text'>PWM</div>         -->
-    
-        <div class='vled-gauge-wrapper span4' id='output-current' ></div>
+      <div class='vled-gauge-wrapper span4' id='output-current' ></div>
       <!--   <div class='panel-text'>PWM</div>         -->
         
-    </div>
+   </div>
 <%- column.end() %>
 
-<%- box.end() %>
+<!-- <%- box.end() %> -->

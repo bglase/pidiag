@@ -25,6 +25,10 @@ module.exports = {
                     brake: true,
                     fault: true,
                     quickstop: true,
+                    forward: true,
+                    reverse: false,
+                    indoor: true,
+                    outdoor: false
                     
             };
             return res.json( status );
