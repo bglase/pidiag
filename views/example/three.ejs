@@ -36,21 +36,44 @@
         renderer.setSize( div.width(), div.height() );
         div.append( renderer.domElement );
 
+        var toplight = new THREE.DirectionalLight( 0xffffff );
+        var bottomlight = new THREE.DirectionalLight( 0xffffff );
+        toplight.position.set( 0, 1, 1 ).normalize();
+        bottomlight.position.set( 0, 0, 1 ).normalize();
+        scene.add(toplight);
+        scene.add(bottomlight);
+
         // create the object that will be animated
-        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        var cube = new THREE.Mesh( geometry, material );
+        var geometry = new THREE.BoxGeometry( 9.58, 0.1, 6 );
+        //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+        var materialbottom = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('/images/bottom2.png') } );
+
+        var materialtop = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('/images/top2.png') } );
+
+        var materialsides = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x006000, specular: 0x555555, shininess: 30 } );
+    
+         var materials = [materialsides, materialsides, materialbottom, materialtop, materialsides, materialsides];
+ 
+         var meshFaceMaterial = new THREE.MeshFaceMaterial( materials );
+
+        var cube = new THREE.Mesh( geometry, meshFaceMaterial );
         scene.add( cube );
 
         // put the camera where you want it
-        camera.position.z = 5;
+        camera.position.z = 15;
+
+        var PI = 3.1415926;
 
         // this is the rendering loop that actually moves the object
         var render = function () {
             requestAnimationFrame( render );
 
-            cube.rotation.x += 0.1;
-            cube.rotation.y += 0.1;
+            //cube.rotation.y += 0.0;
+            //cube.rotation.x += 0.0;
+            cube.rotation.x = PI/2;
+            cube.rotation.y = 0;
+            cube.rotation.z = 0;
 
             renderer.render(scene, camera);
         };
