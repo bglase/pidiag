@@ -1,0 +1,63 @@
+
+ 
+<%- row.start() %>
+
+<%- column.start(4, 'padded') %>
+<%- column.end() %>
+
+<%- column.start(4, 'padded') %>
+
+     <div class='inner-well' >
+     <div class='canvas-3' id='showbox' style='width: 100%; height: 400px'></div>
+         
+   </div>
+<%- column.end() %>
+
+<%- column.start(4, 'padded') %>
+<%- column.end() %>
+
+<%- row.end() %>
+ 
+<script>
+    
+    // after the document is loaded, run this function
+    $(document).ready( function() {
+
+        var div = $('#showbox');
+
+        var container = document.getElementById( 'showbox' );
+ 
+        // create the animation scene, camera, and renderer
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera( 75, div.width() / div.height(), 0.1, 1000 );
+        renderer = new THREE.WebGLRenderer();
+
+        // size the rendering to fit in the container div
+        renderer.setSize( div.width(), div.height() );
+        div.append( renderer.domElement );
+
+        // create the object that will be animated
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+        var cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+
+        // put the camera where you want it
+        camera.position.z = 5;
+
+        // this is the rendering loop that actually moves the object
+        var render = function () {
+            requestAnimationFrame( render );
+
+            cube.rotation.x += 0.1;
+            cube.rotation.y += 0.1;
+
+            renderer.render(scene, camera);
+        };
+
+        // start rendering using the rendering loop defined above
+        render();    
+    });
+               
+</script>
+ 
