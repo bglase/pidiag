@@ -33,8 +33,8 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-      controller: 'StatusController',
-      action: 'index'
+      controller: 'ImuController',
+      action: 'fileList'
   }
 
   /***************************************************************************

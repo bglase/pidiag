@@ -14,6 +14,10 @@
  */
 var extend = require('util')._extend;
 
+/**
+ * Generate universal unique id's (for DOM element IDs, etc)
+ */
+var uuid = require('uuid');
 
 
 module.exports.http = {
@@ -359,35 +363,51 @@ module.exports.http = {
                   return '<div class="' + classes + '">' + content;
               };
 
-              /**
-               * Returns an inset (well) div
-               *
-               * You should put this box inside a 'row-fluid' or 'row' div according to bootstrap conventions
+
+             /**
+               * Generates an HTML toggle (on/off) switch
                *
                * Options:
-               *     Any other options are passed to HtmlHelper::div
+               *     'label': the text to show near the toggle switch
+               *     'position': 'left' (default) or 'right'; the location of the label relative to the switch
+               *     'color': 'green' (default)
+               *     'checked': true or false (default), dependent on state of input
+               *     'id': the HTML element's id (include this if you need a specific id to hook events to)
+               * Examples:
+               *    toggleSwitch( {id: 'my-toggle'});
+               *    Client-side: capture a change notification:
+               *      $("#my-toggle").change(function() { alert($(this).attr("checked")); });'
                *
-               * @param string $content HTML to put in the box
-               * @param array  $options see descriptions
+               * @param array options see description above
                *
-               * @return string HTML element
+               * @return string HTML content
                */
-       /*       public function blockWell( $content, $options = array() )
+              res.locals.toggleSwitch = function( options ) 
               {
-                  $options = array_merge( array('span' => 12), $options );
+                 options = extend( { label: '', color: 'green', checked: false, position: 'left' }, options);
 
-                  $class = 'inner-well';
+                  // make a new unique element ID
+                  options.id = options.id || uuid.v4();
 
-                  if (isset( $options['class'] ))
+                  if (true == $options['checked'])
                   {
-                      $class .= (' ' . $options['class']);
-                      unset( $options['class'] );
+                      return '<span class="checky-label-' + options.position + '">'
+                          + options.label + '</span>'
+                          + '<input type="checkbox" id="' + options.id + '" class="checky ' + options.color + '" checked/>'
+                          + '<label for="' + options.id + '" class="checky '
+                          + options.color + '"><span></span></label>';
                   }
-
-                  return $this->Html->div( $class, $content, $options );
+                  else
+                  {
+                      return '<span class="checky-label-' + options.position + '">'
+                          + options.label + '</span>'
+                          + '<input type="checkbox" id="' + options.id + '" class="checky ' + options.color + '" />'
+                          + '<label for="' + options.id + '" class="checky '
+                          + options.color + '"><span></span></label>';
+                  }
               }
-              */
-              /**
+
+             /**
                * Panel helpers, to make panels with LED indicators for instance
                * 
                * 

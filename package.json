@@ -6,7 +6,6 @@
   "keywords": [],
   "dependencies": {
     "ejs": "~0.8.4",
-    
     "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.10.1",
@@ -22,7 +21,8 @@
     "include-all": "~0.1.3",
     "rc": "~0.5.0",
     "sails": "~0.11.0",
-    "sails-disk": "~0.10.0"
+    "sails-disk": "~0.10.0",
+    "uuid": "^2.0.1"
   },
   "scripts": {
     "start": "node app.js",
@@ -31,7 +31,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bill/diag.git"
+    "url": "git://github.com/bill/pidiag.git"
   },
   "author": "bill",
   "license": ""

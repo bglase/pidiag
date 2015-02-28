@@ -31,6 +31,7 @@ var jsFilesToInject = [
   'js/dependencies/jquery-1.11.2.min.js',
   'js/dependencies/fusioncharts/fusioncharts.js',
   'js/dependencies/fusioncharts/fusioncharts.jqueryplugin.js',
+  'js/dependencies/three.min.js',
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files

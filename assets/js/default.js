@@ -1,4 +1,13 @@
 
+
+/**
+ * Stuff to execute when the page is loaded
+ */
+$(document).ready( function() {
+
+ });
+
+
 /*
 $(document).ready(function() {
 FusionCharts['debugger'].outputTo(function (message) {
