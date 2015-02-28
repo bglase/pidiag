@@ -5,29 +5,7 @@
  */
 
 
- /**
- * Prints a set of controller items to the console
- * 
- * @param error
- * @param data
- */
-function outputItems( error, data ) {
-    if( error ) {
-        console.error( error.toString );
-    }
-    else {
-        if( data.complete ) {
-            for( var i = 0; i < data.items.length; i++ ) {
-               console.log( data.items[i].name + ': ' + data.items[i].value + ' ' + data.items[i].units);
-            }
-        }
-        else {
-            console.log('progress: ' + data.progress );
-        }
-    }
-};
-
-
+ 
 module.exports = {
 
         
@@ -36,64 +14,24 @@ module.exports = {
          */
         index: function (req, res) {
             
-            res.view('status', {
-                title: 'Status',
-                data: {},
+            var fs = require('fs');
+
+            fs.readdir('/home/pi', function(err, files) {
+                if( err ) {
+                    console.log( err);
+                }
+                else {
+                    files = files.filter(function(item){
+                        return /.csv$/.test(item);
+                    });
+                    res.view('menu', {
+                        title: 'IMU Menu',
+                        data: files,
+                    });
+                }
             });
-        },
-        
-
-        statuspanel: function (req, res) {
-
-            var stuffToRead = [
-                PortManager.map.throttleValue,
-                PortManager.map.pwm,
-                PortManager.map.speed,
-                ];
             
-
-            PortManager.readRam(  stuffToRead, function( error, data ) {
-                outputItems( error, data );
-                 return res.json( data );
-            } );
-
-
-           
-          
         },
-        
-
-                pwm: function (req, res) {
-
-            
-
-            PortManager.readRam(  PortManager.map.pwm, function( error, data ) {
-                outputItems( error, data );
-                 return res.send( '&value=' + data.items[0].value );
-            } );
-
-
-           
-          
-        },
-
-        idiotpanel: function (req, res) {
-
- 
-
-            var status = {
-                    key: true,
-                    brake: true,
-                    fault: true,
-                    quickstop: true,
-                    forward: true,
-                    reverse: false,
-                    indoor: true,
-                    outdoor: false
-                    
-            };
-            return res.json( status );
-          },
-          
+     
 };
 

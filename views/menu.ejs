@@ -1,0 +1,26 @@
+
+<%- row.start() %>
+<%- column.start(3, 'padded') %>
+<%- column.end() %>
+
+<%- column.start(6, 'padded') %>
+
+     <div class='inner-well btn-group-vertical fill-up' >
+
+    <% if( !data.length ) { %>
+        <h4>No CSV files found</h4>
+    <% } else { %>
+        <% for(var i=0; i<data.length; i++) {%>
+        <a href="/dashboard?file=<%= data[i] %>"><div class='button'><%= data[i] %></div></a>
+        <% } %>
+    <% } %>
+         
+   </div>
+<%- column.end() %>
+
+<%- column.start(3, 'padded') %>
+<%- column.end() %>
+
+
+<%- row.end() %>
+

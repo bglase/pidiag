@@ -1,0 +1,166 @@
+
+<%- row.start() %>
+<%- column.start(4) %>
+    <div class='box  fill-up' >
+    <div id="accelx" class="fill-up" style="width:100%;height:300px;"></div>
+    </div>
+<%- column.end() %>
+
+<%- column.start(4) %>
+
+    <div class='box  fill-up' >
+     <div id="accely" class="fill-up" style="width:100%;height:300px;"></div>
+
+    </div>
+<%- column.end() %>
+
+<%- column.start(4) %>
+    <div class='box  fill-up' >
+     <div id="accelz" class="fill-up" style="width:100%;height:300px;"></div>
+
+    </div>
+<%- column.end() %>
+
+<%- row.end() %>
+
+<%- row.start() %>
+<%- column.start(4) %>
+    <div class='box  fill-up' >
+    <div id="gyrox" class="fill-up" style="width:100%;height:300px;"></div>
+
+    </div>
+<%- column.end() %>
+
+<%- column.start(4) %>
+
+    <div class='box  fill-up' >
+     <div id="gyroy" class="fill-up" style="width:100%;height:300px;"></div>
+
+    </div>
+<%- column.end() %>
+
+<%- column.start(4) %>
+    <div class='box  fill-up' >
+            <div id="gyroz" class="fill-up" style="width:100%;height:300px;"></div>
+    </div>
+<%- column.end() %>
+
+<%- row.end() %>
+
+<%- row.start() %>
+<%- column.start(12) %>
+   <!--  <div class='box  fill-up' >
+     <div id="graphdiv" class="fill-up" style="width:100%;height:300px;"></div>
+
+    </div> -->
+<%- column.end() %>
+
+<%- row.end() %>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+
+    $.get('/dashboard/get?file=<%= data.file %>',function(data){
+
+        var ax = new Dygraph(
+            document.getElementById("accelx"),
+            data,
+            {
+                title: 'Accel X',
+                axisLabelColor: 'black',
+                labels: <%- JSON.stringify(data.labels) %>,
+                visibility: [false,false,false,true,false,false,false,false,false],
+               // valueRange: [-1000, 1000],
+            });
+
+        var ay = new Dygraph(
+            document.getElementById("accely"),
+            data,
+            {
+                title: 'Accel Y',
+                axisLabelColor: 'black',
+                labels: <%- JSON.stringify(data.labels) %>,
+                visibility: [false,false,false,false,true,false,false,false,false],
+               // valueRange: [-1000, 1000],
+             });
+
+       var az = new Dygraph(
+            document.getElementById("accelz"),
+            data,
+            {
+                title: 'Accel Z',
+                axisLabelColor: 'black',
+                labels: <%- JSON.stringify(data.labels) %>,
+                visibility: [false,false,false,false,false,true,false,false,false],
+                //valueRange: [-1000, 1000],
+             });
+
+
+        var gx = new Dygraph(
+            document.getElementById("gyrox"),
+            data,
+            {
+                title: 'Gyro X',
+                axisLabelColor: 'black',
+                labels: <%- JSON.stringify(data.labels) %>,
+                visibility: [false,false,false,false,false,false,true,false,false],
+                //valueRange: [-200, 200],
+            });
+
+
+        var gy = new Dygraph(
+            document.getElementById("gyroy"),
+            data,
+            {
+                title: 'Gyro Y',
+                axisLabelColor: 'black',
+                labels: <%- JSON.stringify(data.labels) %>,
+                visibility: [false,false,false,false,false,false,false,true,false],
+                //valueRange: [-200, 200],
+            });
+
+        var gz = new Dygraph(
+            document.getElementById("gyroz"),
+            data,
+            {
+                title: 'Gyro Z',
+                axisLabelColor: 'black',
+                labels: <%- JSON.stringify(data.labels) %>,
+                visibility: [false,false,false,false,false,false,false,false,true],
+               // valueRange: [-200, 200],
+            });
+
+
+      //  var sync = Dygraph.synchronize(gx, gy, gz); //ax, ay, az, 
+        //sync.detach();
+ 
+
+ // setInterval(function() {
+ //    $.get('/dashboard/get?file=<%= data.file %>',function(data){  
+
+ //        ax.updateOptions( { 'file': data } );
+ //        ay.updateOptions( { 'file': data } );
+ //        az.updateOptions( { 'file': data } );
+ //        }, 'text');
+ //    }, 5000);
+ 
+     }, 'text');
+
+/*
+
+    var g = new Dygraph(
+
+
+    // containing div
+    document.getElementById("graphdiv"),
+    '/dashboard/get?file=<%= data.file %>',
+    {
+        axisLabelColor: 'black',
+        labels: <%- JSON.stringify(data.labels) %>,
+        visibility: [false,false,false,true,true,true,false,false,false],
+    }
+  ); */
+});
+
+</script>
