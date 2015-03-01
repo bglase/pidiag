@@ -8,9 +8,20 @@
 // File system interface
 var fs = require('fs');
 
+// module for managing 
+var childProcess = require('child_process');
+
 // The path to where sensor data files are stored
 var fileHome = './';
 
+// stores an instance of a running child process
+var imu;
+
+// Keep track of the latest
+var latestImuUpdate = {
+    quaternion: [ 1,0,0,0 ],
+    acceleration: [0,0,1],
+}
 // These are the public interfaces that we expose 
 module.exports = {
 
@@ -88,6 +99,106 @@ module.exports = {
         }
     },
 
+
+    startImu: function( req, res ) {
+
+        // keep track of whether callback has been invoked to prevent multiple invocations
+        var invoked = false;
+
+        //imu = childProcess.spawn( './mock.py');
+        imu = childProcess.spawn( 'minimu9-ahrs -b /dev/i2c-1 --output quaternion');
+
+        // listen for errors as they may prevent the exit event from firing
+        imu.on('error', function (err) {
+       //     if (invoked) return;
+         //   invoked = true;
+            //callback(err);
+        });
+
+        // execute the callback once the process has finished running
+        imu.on('close', function (code) {
+        //    if (invoked) return;
+        //    invoked = true;
+            //var err = code === 0 ? null : new Error('exit code ' + code);
+            //callback(err);
+        });
+
+
+        // Process data output from stdout in the child process
+        imu.stdout.on('data', function(chunk) {
+                var str = new Buffer(chunk).toString().split(' ');
+                if( 10 != str.length)
+                    console.error( 'got ' + str.length );
+                else {
+                    latestImuUpdate = {
+                        quaternion: [ str[0], str[1], str[2], str[3] ],
+                        acceleration: [str[4], str[5], str[6] ],
+
+                    };
+                    console.info( latestImuUpdate.quaternion );
+                }
+        });
+    },
+
+    startImuFile: function( req, res ) {
+
+        var file = req.param('file') || '';
+        var interval = req.param('interval') || 1000;
+
+        var fs = require( 'fs');
+
+        fs.readFile( file, 'utf8', function(err, data) {
+            if (err) res.notFound();
+            else
+            {
+                
+                var lines = data.split('\n');
+                res.send( 'Using ' + file + ' which has ' + lines.length + '. Interval: ' + interval + ' ms' );
+                var i = 0;
+                setInterval( function() {
+                    lines[i] = lines[i].trim().replace(/\s{2,}/g, ' ');
+                    var str = lines[i].split(' ');
+                    if( 10 != str.length)
+                        console.error( 'got ' + str.length );
+                    else {
+                        latestImuUpdate = {
+                            quaternion: [ str[0], str[1], str[2], str[3] ],
+                            acceleration: [str[4], str[5], str[6] ],
+
+                        };
+                        console.info( latestImuUpdate.quaternion );
+                    }
+
+                    // increment the line and wrap at the end
+                    i++;
+                    if( ++i == lines.length)
+                        i = 0;
+
+                }, interval);
+            }
+        });
+    },
+
+    stopImu: function( req, res ) {
+
+        if( imu ) {
+            try {
+                imu.kill;
+            }
+            catch(e) {
+
+            }
+            
+            imu = null;
+        }
+
+        
+    },
+
+    // Retrieve the latest IMU reading
+    currentImu: function( req, res) {
+        return res.json( latestImuUpdate );
+    },
 
     subscribeTo: function(req, res) {
         var name = req.param('name');
