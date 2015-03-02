@@ -106,13 +106,14 @@ module.exports = {
         var invoked = false;
 
         //imu = childProcess.spawn( './mock.py');
-        imu = childProcess.spawn( 'minimu9-ahrs -b /dev/i2c-1 --output quaternion');
+        imu = childProcess.spawn( '/usr/bin/minimu9-ahrs', ['-b', '/dev/i2c-1', '--output', 'quaternion']);
 
         // listen for errors as they may prevent the exit event from firing
         imu.on('error', function (err) {
-       //     if (invoked) return;
-         //   invoked = true;
-            //callback(err);
+            if (invoked) return;
+            invoked = true;
+            console.error( ' spawned program error: ' + err);
+            //res.badRequest( err );//callback(err);
         });
 
         // execute the callback once the process has finished running
@@ -121,12 +122,14 @@ module.exports = {
         //    invoked = true;
             //var err = code === 0 ? null : new Error('exit code ' + code);
             //callback(err);
+            console.info( code);
         });
 
+	res.send( 'Started minimu9');
 
         // Process data output from stdout in the child process
         imu.stdout.on('data', function(chunk) {
-                var str = new Buffer(chunk).toString().split(' ');
+                var str = new Buffer(chunk).toString().trim().replace(/\s{2,}/g, ' ').split(' ');
                 if( 10 != str.length)
                     console.error( 'got ' + str.length );
                 else {
@@ -137,6 +140,14 @@ module.exports = {
                     };
                     console.info( latestImuUpdate.quaternion );
                 }
+        });
+
+        // Process data output from stdout in the child process
+        imu.stderr.on('data', function(chunk) {
+                var str = new Buffer(chunk).toString();
+                
+                    console.error( str );
+                
         });
     },
 

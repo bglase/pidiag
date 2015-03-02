@@ -6,7 +6,7 @@
 <%- column.start(4, 'padded') %>
     <%- row.start() %>
         <div class='inner-well' >
-            <div class='canvas-3' id='showbox' style='width: 100%; height: 400px'></div>
+            <div class='canvas-3' id='showbox' style='width: 100%; height: 300px'></div>
         </div>
     <%- row.end() %>
 <%- column.end() %>
@@ -16,16 +16,14 @@
     <%- row.start() %>
         <div class='inner-well span12' >
             <%- row.start() %>
-                <%- statusBlock('X', '0', '', {span: 3, valueClass: 'status-x-angle'}) %>
-                <div id='x-rotation-history' class='span9' style='height:200px;'></div>
+                
+                <div id='x-accel-history' class='span12' style='height:200px;'></div>
             <%- row.end() %>
             <%- row.start() %>
-                <%- statusBlock('Y', '0', '', {span: 3, valueClass: 'status-y-angle'}) %>
-                <div id='y-rotation-history' class='span9' style='height:200px;'></div>
+                <!--  <%- statusBlock('Y', '0', '', {span: 3, valueClass: 'status-y-angle'}) %>  -->
+                <div id='y-rotation-history' class='span12' style='height:200px;'></div>
             <%- row.end() %>
             <%- row.start() %>
-                <%- statusBlock('Z', '0', '', {span: 3, valueClass: 'status-z-angle'}) %>
-                <div id='z-rotation-history' class='span9' style='height:200px;'></div>
             <%- row.end() %>
         </div>
     <%- row.end() %>
@@ -41,11 +39,10 @@
         var xRotation;  // strip chart object
         var yRotation;  // strip chart object
         var zRotation;  // strip chart object
+        var xAccel;     // strip chart object
 
         var div = $('#showbox');
 
-        var container = document.getElementById( 'showbox' );
- 
         // create the animation scene, camera, and renderer
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera( 75, div.width() / div.height(), 0.1, 1000 );
@@ -55,33 +52,31 @@
         renderer.setSize( div.width(), div.height() );
         div.append( renderer.domElement );
 
-        var toplight = new THREE.DirectionalLight( 0xffffff );
+        //var toplight = new THREE.DirectionalLight( 0xffffff );
         var ambientlight = new THREE.AmbientLight( 0xFFFFFF );
-        toplight.position.set( 0, 1, 1 ).normalize();
-        scene.add(toplight);
+        //toplight.position.set( 0, 1, 1 ).normalize();
+        //scene.add(toplight);
         scene.add(ambientlight);
 
         // create the object that will be animated
-        var geometry = new THREE.BoxGeometry( 9.58 , 6, 0.1 );
-        //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+        var geometry = new THREE.BoxGeometry( 9.58 , 6, 0.3 );
 
         var materialbottom = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('/images/bottom2.png') } );
-
         var materialtop = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('/images/top2.png') } );
-
         var materialsides = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x006000, specular: 0x555555, shininess: 30 } );
     
-         var materials = [
+        var materials = [
             materialsides, 
             materialsides, 
             materialsides,
             materialsides, 
-            materialtop, 
             materialbottom, 
+            materialtop, 
             ];
  
-         var meshFaceMaterial = new THREE.MeshFaceMaterial( materials );
+        var meshFaceMaterial = new THREE.MeshFaceMaterial( materials );
 
+        // Add the board object to the scene
         var cube = new THREE.Mesh( geometry, meshFaceMaterial );
         scene.add( cube );
         
@@ -89,15 +84,17 @@
         var axes = buildAxes( 8 );
         scene.add( axes);
 
-        // put the camera where you want it
-        camera.position.z = 15;
 
-        var PI = 3.1415926;
+        // Aim the camera     
+        camera.position.set( Math.PI/4, -10, Math.PI/4 );
+        camera.up = new THREE.Vector3(0,0,1);
+        camera.lookAt( 0,0,0);
 
  
+        // Set up trackball controls so we can move the camera with the mouse
         var controls = new THREE.TrackballControls( camera );
 
-        controls.rotateSpeed = 5.0;
+        controls.rotateSpeed = 3.0;
         controls.zoomSpeed = 1.2;
         controls.panSpeed = 0.8;
 
@@ -109,41 +106,31 @@
 
         controls.keys = [ 65, 83, 68 ];
 
-    //    controls.addEventListener( 'change', render );
-
        // this is the rendering loop that actually moves the object
         var render = function () {
-            requestAnimationFrame( render );
+           // requestAnimationFrame( render );
 
-            // cube.rotation.y += 0.01;
-            // cube.rotation.x += 0.01;
-            // cube.rotation.x = PI/2;
-            controls.update();
-            renderer.render(scene, camera);
+             //cube.rotation.y += 0.01;
+             //cube.rotation.x += 0.01;
+            
+             controls.update();
+             renderer.render(scene, camera);
         };
 
 
         // start rendering using the rendering loop defined above
         render(); 
-       // renderer.render(scene, camera);   
-        //requestAnimationFrame( animate );
-
-        function animate() {
-            requestAnimationFrame( animate );
-            controls.update();
-        }
-
-      //  animate();
-
+ 
         // Set up the strip charts for X angle
         FusionCharts.ready(function () {
 
+/*
             // enable chart debugging features
             FusionCharts['debugger'].outputTo(function (message) {
                 console.log(message);
             });
             FusionCharts['debugger'].enable(true);
-
+*/
             //common strip chart setup
             var stripchart = {
                 "manageresize": "1",
@@ -152,20 +139,18 @@
                 "canvasborderthickness": "1",
                 "canvasbordercolor": "008040",
                 "canvasbgcolor": "000000",
-                "yaxismaxvalue": "180",
-                "yaxisminvalue": "-180",
+                "yaxismaxvalue": "90",
+                "yaxisminvalue": "-90",
                 "decimals": "0",
                 "numdivlines": "6",
                 "numvdivlines": "28",
-                "numdisplaysets": "100",
+                "numdisplaysets": "10",
                 "divlinecolor": "008040",
                 "vdivlinecolor": "008040",
                 "divlinealpha": "100",
                 "chartleftmargin": "10",
                 "basefontcolor": "00dd00",
-                "showrealtimevalue": "0",
-                //"datastreamurl": "/DataProviders/RealTimeLine1.php",
-                //"refreshinterval": "2",
+                "showrealtimevalue": "1",
                 "numbersuffix": "\xB0",
                 "labeldisplay": "rotate",
                 "slantlabels": "1",
@@ -211,16 +196,17 @@
                 },
             });
 
-            xRotation.render();
+            //xRotation.render();
 
             // Create the stripchart for Y rotation
-            stripchart.caption = "Y Rotation";
+            stripchart.caption = "Chassis Angle";
             yRotation = new FusionCharts({
                 "type": "realtimeline",
                 "renderAt": "y-rotation-history",
                 "width": "100%",
                 "height": "100%",
                 "dataFormat": "json",
+                "animation" : "0",
                 "dataSource": {
                     "chart" : stripchart,
                     "dataset" : dataset, 
@@ -229,23 +215,58 @@
 
             yRotation.render();
             
-            // Create the stripchart for Y rotation
-            stripchart.caption = "Z Rotation";
-            zRotation = new FusionCharts({
+            //common acceleration strip chart setup
+            var accelchart = {
+                "manageresize": "1",
+                "bgcolor": "000000",
+                "bgalpha": "100",
+                "canvasborderthickness": "1",
+                "canvasbordercolor": "008040",
+                "canvasbgcolor": "000000",
+                "yaxismaxvalue": "1",
+                "yaxisminvalue": "-1",
+                "decimals": "2",
+                "numdivlines": "11",
+                "numvdivlines": "10",
+                "numdisplaysets": "10",
+                "divlinecolor": "008040",
+                "vdivlinecolor": "008040",
+                "divlinealpha": "100",
+                "chartleftmargin": "10",
+                "basefontcolor": "00dd00",
+                "showrealtimevalue": "1",
+                "numbersuffix": "g",
+                //"labeldisplay": "rotate",
+                //"slantlabels": "1",
+                "tooltipbgcolor": "000000",
+                "tooltipbordercolor": "008040",
+                "basefontsize": "11",
+                "showalternatehgridcolor": "0",
+                "legendbgcolor": "000000",
+                "legendbordercolor": "008040",
+                "legendpadding": "35",
+                //"showlabels": "1",
+                "showborder": "0"
+            };
+            // Create the stripchart for X acceleration
+            accelchart.caption = "X Acceleration";
+            xAccel = new FusionCharts({
                 "type": "realtimeline",
-                "renderAt": "z-rotation-history",
+                "renderAt": "x-accel-history",
                 "width": "100%",
                 "height": "100%",
                 "dataFormat": "json",
+                "animation" : "0",
                 "dataSource": {
-                    "chart" : stripchart,
+                    "chart" : accelchart,
                     "dataset" : dataset, 
                 },
             });
 
-            zRotation.render();
+            xAccel.render();
         });  
 
+       
 
                 // set up a query to the server for the current orientation of the board
         setInterval( function() {
@@ -258,11 +279,10 @@
                         parseFloat(data.quaternion[0])
                       );
 
+                    // update the orientation of the object
                     cube.matrix.makeRotationFromQuaternion(q); 
-                    //object.matrix.setPosition(start_position); 
                     cube.matrixAutoUpdate = false;
-                    //console.log( data.quaternion.join( ' '));
-
+ 
                     // Convert to degrees for display
                     var e = new THREE.Euler().setFromQuaternion( q );
                     
@@ -273,18 +293,14 @@
                     //$('.status-y-angle').html( '<span>Y</span>' + y );
                     //$('.status-z-angle').html( '<span>Z</span>' + z );
 
-                   //console.log( x );
-
- 
-                    //cube.useQuaternion  = true;
-                    //cube.quaternion = q;
-                    //cube.updateMatrix();
-                   // renderer.render( scene, camera );
-
+                    render();
+                    
                     // update the strip charts
                     //if( xRotation) xRotation.feedData( '&value='+x );
-                    //if( yRotation) yRotation.feedData( '&value='+y );
+                    if( yRotation) yRotation.feedData( '&value='+y );
                     //if( zRotation) zRotation.feedData( '&value='+z );
+
+                    if( xAccel ) xAccel.feedData( '&value='+data.acceleration[0] );
   
                 }
             });
@@ -292,133 +308,6 @@
 
            
     });
-
-
-
-//------------------------------------------------------------------------------------------------------
-/*
-
-if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
-var container, stats;
-
-var camera, controls, scene, renderer;
-
-var cross;
-
-init();
-animate();
-
-function init() {
-
-camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
-camera.position.z = 500;
-
-controls = new THREE.TrackballControls( camera );
-
-controls.rotateSpeed = 1.0;
-controls.zoomSpeed = 1.2;
-controls.panSpeed = 0.8;
-
-controls.noZoom = false;
-controls.noPan = false;
-
-controls.staticMoving = true;
-controls.dynamicDampingFactor = 0.3;
-
-controls.keys = [ 65, 83, 68 ];
-
-controls.addEventListener( 'change', render );
-
-// world
-
-scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
-
-var geometry = new THREE.CylinderGeometry( 0, 10, 30, 4, 1 );
-var material =  new THREE.MeshLambertMaterial( { color:0xffffff, shading: THREE.FlatShading } );
-
-for ( var i = 0; i < 500; i ++ ) {
-
-var mesh = new THREE.Mesh( geometry, material );
-mesh.position.x = ( Math.random() - 0.5 ) * 1000;
-mesh.position.y = ( Math.random() - 0.5 ) * 1000;
-mesh.position.z = ( Math.random() - 0.5 ) * 1000;
-mesh.updateMatrix();
-mesh.matrixAutoUpdate = false;
-scene.add( mesh );
-
-}
-
-
-// lights
-
-light = new THREE.DirectionalLight( 0xffffff );
-light.position.set( 1, 1, 1 );
-scene.add( light );
-
-light = new THREE.DirectionalLight( 0x002288 );
-light.position.set( -1, -1, -1 );
-scene.add( light );
-
-light = new THREE.AmbientLight( 0x222222 );
-scene.add( light );
-
-
-// renderer
-
-renderer = new THREE.WebGLRenderer( { antialias: false } );
-renderer.setClearColor( scene.fog.color );
-renderer.setPixelRatio( window.devicePixelRatio );
-renderer.setSize( window.innerWidth, window.innerHeight );
-
-container = document.getElementById( 'container' );
-container.appendChild( renderer.domElement );
-
-stats = new Stats();
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.top = '0px';
-stats.domElement.style.zIndex = 100;
-container.appendChild( stats.domElement );
-
-//
-
-window.addEventListener( 'resize', onWindowResize, false );
-
-//
-
-render();
-
-}
-
-function onWindowResize() {
-
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-
-renderer.setSize( window.innerWidth, window.innerHeight );
-
-controls.handleResize();
-
-render();
-
-}
-
-function animate() {
-
-requestAnimationFrame( animate );
-controls.update();
-
-}
-
-function render() {
-
-renderer.render( scene, camera );
-stats.update();
-
-}
-
-*/
 
 </script>
  
